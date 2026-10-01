@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ARCEAUS — SaaS design studio</title>
+<title>Arceaus</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -131,7 +132,7 @@ nav.fl a.on{background:var(--ink);color:var(--paper)}
 </defs></svg>
 
 <header>
-<a class="logo" href="#top">ARCEAUS</a><span class="notch"></span>
+<a class="logo" href="#top"><img src="Assets/logo_full.svg" alt="ARCEAUS"></a><span class="notch"></span>
 <div class="hr"><a href="#contact">Book a call</a><a class="btn" href="#contact"><i></i>Let's connect</a></div>
 </header>
 
@@ -201,8 +202,14 @@ nav.fl a.on{background:var(--ink);color:var(--paper)}
 
 <nav class="fl" aria-label="Sections"><a href="#home" class="on">Home ↗</a><a href="#services">Services</a><a href="#process">Process</a><a href="#cases">Cases</a></nav>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95 });
+requestAnimationFrame(function raf(time){lenis.raf(time);requestAnimationFrame(raf)});
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const h=a.getAttribute('href');if(h==='#')return;e.preventDefault();lenis.scrollTo(h==='#top'?0:h,{duration:1.5})}));
+anime({targets:'main > section, footer',opacity:[0,1],translateY:[28,0],delay:anime.stagger(100),duration:900,easing:'easeOutExpo'});
 // services accordion
 $$('#svc li').forEach(li=>li.addEventListener('click',()=>{$$('#svc li').forEach(x=>{x.classList.remove('on');x.querySelector('.p').textContent='( + )'});li.classList.add('on');li.querySelector('.p').textContent='( − )';
  if(!li.querySelector('.d')){const d=document.createElement('div');d.className='d';d.textContent='ARCEAUS delivers focused '+li.querySelector('.r>div').textContent.toLowerCase()+' for SaaS teams: research-led, tested, and shipped alongside your developers.';li.querySelector('.r>div').appendChild(d);requestAnimationFrame(()=>li.classList.add('on'))}}));
