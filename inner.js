@@ -1,7 +1,7 @@
 (() => {
 const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
 const EASE = 'easeOutExpo';
-const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95 });
+const lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 1, smoothWheel: true });
 requestAnimationFrame(function l(t) { lenis.raf(t); requestAnimationFrame(l); });
 $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const h = a.getAttribute('href'); if (h === '#top') lenis.scrollTo(0, { duration: 1.5 }); else if (h.length > 1) lenis.scrollTo(h, { duration: 1.5 }); }));
 /* page transitions + nav state */

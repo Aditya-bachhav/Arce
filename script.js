@@ -3,9 +3,10 @@ const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [..
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const RM = matchMedia('(prefers-reduced-motion:reduce)').matches;
 const EASE = 'easeOutExpo';
+const MOBILE = matchMedia('(max-width:820px)').matches;
 
 /* ---------- Lenis smooth scroll ---------- */
-const lenis = new Lenis({ lerp: 0.085, wheelMultiplier: 0.95 });
+const lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 1, smoothWheel: true });
 let bigTarget = 0, bigCur = 0, bigPT = 0, bigP = 0, drawT = 0, drawCur = 0;
 const sqm = $('#sqm'), sqh = $('#sqh'), sqLen = sqm.getTotalLength();
 sqm.style.strokeDasharray = sqLen; sqm.style.strokeDashoffset = sqLen;
@@ -24,7 +25,7 @@ requestAnimationFrame(function loop(t) {
   drawCur += (drawT - drawCur) * 0.12;
   sqm.style.strokeDashoffset = sqLen * (1 - drawCur);
   sqh.style.opacity = drawCur > 0.97 ? 1 : 0;
-  followTick();
+  if (!MOBILE) followTick();
   requestAnimationFrame(loop);
 });
 
@@ -40,7 +41,7 @@ const tr = $('#tr');
 const HERO_IMAGES = ['Assets/hero-imgs/2.webp', 'Assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_47_36%20PM.webp', 'Assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_56_06%20PM.webp', 'Assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_58_20%20PM.webp', 'Assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2004_02_38%20PM%201.webp', 'Assets/hero-imgs/Frame%202147239316.webp', 'Assets/hero-imgs/Frame%202147239317.webp', 'Assets/hero-imgs/Frame%202147239319.webp'];
 const heroDots = $('#hero-dots');
 HERO_IMAGES.forEach((src, index) => {
-  const image = document.createElement('img'); image.className = 'hero-slide'; image.src = src; image.alt = `ARCEAUS project visual ${index + 1}`; image.loading = index ? 'lazy' : 'eager'; scn.append(image);
+  const image = document.createElement('img'); image.className = 'hero-slide'; image.src = src; image.alt = `ARCEAUS project visual ${index + 1}`; image.loading = index ? 'lazy' : 'eager'; image.decoding = 'async'; scn.append(image);
   const dot = document.createElement('button'); dot.type = 'button'; dot.ariaLabel = `Show hero image ${index + 1}`; dot.addEventListener('click', () => showHero(index)); heroDots.append(dot);
 });
 const heroSlides = $$('.hero-slide', scn), heroButtons = $$('button', heroDots); let heroIndex = 0;

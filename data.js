@@ -21,7 +21,7 @@ const FAQ = [["What services does ARCEAUS offer?", "Brand identity, web design, 
   const links = pages.map(p => `<a href="${p[0]}">${p[1]}</a>`).join('');
   set('ftr', document.body.hasAttribute('data-slim')
     ? `<footer class="slim pad"><small>© 2026 ARCEAUS</small><small><a href="mailto:${SITE.email}">${SITE.email}</a></small></footer>`
-    : `<footer class="pad"><div class="logo">ARCEAUS</div><div>${links}</div><div class="f3">Available for work<br>Digital Designers<br>Based in India<br>Since 2026</div><a class="up" href="#top" aria-label="Back to top">↑</a><small>© 2026</small><small><a href="mailto:${SITE.email}">${SITE.email}</a></small><small>About Us.</small></footer>`);
+    : `<footer class="pad"><div class="logo"><img src="Assets/logo_full.svg" alt="ARCEAUS"></div><div>${links}</div><div class="f3">Available for work<br>Digital Designers<br>Based in India<br>Since 2026</div><a class="up" href="#top" aria-label="Back to top">↑</a><small>© 2026</small><small><a href="mailto:${SITE.email}">${SITE.email}</a></small><small>About Us.</small></footer>`);
   document.body.insertAdjacentHTML('beforeend', `<nav class="fl" aria-label="Pages">${links}</nav>`);
   const clk = document.getElementById('clk');
   const tick = () => { if (clk) clk.textContent = new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'Asia/Kolkata' }); };
