@@ -7,21 +7,17 @@ const MOBILE = matchMedia('(max-width:820px)').matches;
 
 /* ---------- Lenis smooth scroll ---------- */
 const lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 1, smoothWheel: true });
-let bigTarget = 0, bigCur = 0, bigPT = 0, bigP = 0, drawT = 0, drawCur = 0;
+let bigTarget = 0, bigCur = 0, drawT = 0, drawCur = 0;
 const sqm = $('#sqm'), sqh = $('#sqh'), sqLen = sqm.getTotalLength();
 sqm.style.strokeDasharray = sqLen; sqm.style.strokeDashoffset = sqLen;
 const row = $('#row'), big = $('#big');
 $('#wc').textContent = `Selected work (${String(PROJECTS.length).padStart(2, '0')})`;
 $('#cases').innerHTML = PROJECTS.map((p, i) => `<article class="case" style="background:${p.bg};top:${60 + i * 22}px"><div class="c1">${p.c}</div><div class="c2"><h4>${p.t}</h4><span>(${p.y})</span></div><div class="c3"><p>${p.d}</p></div><a class="btn" href="project.html?p=${p.s}"><i></i>View project</a><div class="lg">${p.t}</div><div class="pv"><img src="${p.img}" alt="${p.t}" loading="lazy" onerror="this.style.display='none'"></div></article>`).join('');
-const cases = $$('.case'), scn = $('#hero-slides'), cta = $('#contact'), gs = $$('.g', row);
-const mixc = (a, b, t) => 'rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * t)).join() + ')';
-const GR = [220, 220, 215], DK = [34, 34, 34], ramp = (p, a, b) => clamp((p - a) / (b - a), 0, 1);
+const cases = $$('.case'), scn = $('#hero-slides'), cta = $('#contact');
 requestAnimationFrame(function loop(t) {
   lenis.raf(t);
-  bigCur += (bigTarget - bigCur) * 0.14; bigP += (bigPT - bigP) * 0.14;
+  bigCur += (bigTarget - bigCur) * 0.14;
   row.style.transform = `translate3d(${bigCur}px,0,0)`;
-  gs[0].style.color = mixc(GR, DK, ramp(bigP, 0.1, 0.5));
-  gs[1].style.color = mixc(GR, DK, ramp(bigP, 0.35, 0.8));
   drawCur += (drawT - drawCur) * 0.12;
   sqm.style.strokeDashoffset = sqLen * (1 - drawCur);
   sqh.style.opacity = drawCur > 0.97 ? 1 : 0;
@@ -77,7 +73,8 @@ anime.set('header', { opacity: 1 });
 anime.timeline({ easing: EASE })
   .add({ targets: '.hero .ln>span', translateY: ['112%', '0%'], duration: 1400, delay: anime.stagger(140, { start: 700 }) })
   .add({ targets: '.hero .bd', scale: [0, 1], rotate: [-200, 0], duration: 1300 }, '-=1000')
-  .add({ targets: ['.hero aside', '.tk', '.scene'], opacity: [0, 1], translateY: [34, 0], duration: 1300, delay: anime.stagger(140) }, '-=1100');
+  .add({ targets: ['.hero aside', '.tk', '.scene'], opacity: [0, 1], translateY: [34, 0], duration: 1300, delay: anime.stagger(140) }, '-=1100')
+  .add({ targets: '.lead p', opacity: [0, 1], translateY: [30, 0], color: ['#b3b3ae', '#222'], duration: 1400, easing: EASE }, '+=500');
 
 /* ---------- Scroll reveals ---------- */
 const io = new IntersectionObserver(es => es.forEach(e => {
@@ -88,10 +85,21 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 $$('[data-r]').forEach(el => io.observe(el));
 
 /* ---------- Horizontal statement ---------- */
+const fillText = $$('.g', row).concat($$('.row > span:last-child'));
+const fillStatement = new IntersectionObserver(es => {
+  if (!es.some(e => e.isIntersecting)) return;
+  fillStatement.disconnect();
+  anime.timeline({ easing: 'easeInOutQuart' })
+    .add({ targets: fillText[0], backgroundPosition: ['100% 0', '0% 0'], duration: 1100 })
+    .add({ targets: fillText[1], backgroundPosition: ['100% 0', '0% 0'], duration: 1500 })
+    .add({ targets: fillText[2], backgroundPosition: ['100% 0', '0% 0'], duration: 1500 });
+}, { threshold: 0.35 });
+fillStatement.observe(big);
+
 function onScroll() {
   const r = big.getBoundingClientRect();
   const p = clamp(-r.top / (r.height - innerHeight), 0, 1);
-  bigTarget = RM ? 0 : -p * (row.scrollWidth - innerWidth * 0.86); bigPT = p;
+  bigTarget = RM ? 0 : -p * (row.scrollWidth - innerWidth * 0.86);
   scn.style.transform = `translate3d(0,${lenis.scroll * 0.05}px,0) scale(${1 + Math.min(lenis.scroll, 900) * 0.00006})`;
   if (innerWidth > 820) cases.forEach((c, i) => { if (i < cases.length - 1) { const k = clamp(1 - (cases[i + 1].getBoundingClientRect().top - (84 + i * 22)) / innerHeight, 0, 1); c.style.transform = `scale(${1 - k * 0.05})`; c.style.filter = `brightness(${1 - k * 0.1})`; } });
   const cr = cta.getBoundingClientRect(); drawT = clamp((innerHeight * 0.85 - cr.top - 120) / (cr.height * 0.55), 0, 1);
@@ -118,10 +126,10 @@ toggle(0);
 
 const fo = $('#fo');
 const FS = [
-  ['#c2b0b5', '<svg viewBox="0 0 70 70"><path fill="#222" d="M35 4l14 14-14 14-14-14zM18 21l14 14-14 14L4 35zM52 21l14 14-14 14-14-14zM35 38l14 14-14 14-14-14z"/></svg>'],
-  ['#b9ae8f', '<svg viewBox="0 0 70 70"><path fill="#222" d="M35 8 64 60H6z"/></svg>'],
-  ['#9fb0bd', '<svg><use href="#ast" color="#222"/></svg>'],
-  ['#a8b89c', '<svg><use href="#star" color="#222"/></svg>']
+  ['#c2b0b5', 'projects/AD-enterprise/head.webp'],
+  ['#b9ae8f', 'projects/Monotone/head.webp'],
+  ['#9fb0bd', 'projects/Nekro/head.webp'],
+  ['#a8b89c', 'projects/Blackrat/head.webp']
 ];
 let mx = 0, my = 0, fx = 0, fy = 0, fin = false;
 addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
@@ -132,8 +140,8 @@ function followTick() {
 ul.addEventListener('mouseenter', () => { if (!fin) { fin = true; fx = mx; fy = my; } anime({ targets: fo, scale: 1, opacity: 1, duration: 600, easing: 'easeOutBack' }); });
 ul.addEventListener('mouseleave', () => { fin = false; anime({ targets: fo, scale: 0, opacity: 0, duration: 400, easing: 'easeInQuad' }); });
 lis.forEach((li, i) => li.addEventListener('mouseenter', () => {
-  const f = FS[i % FS.length]; fo.style.background = f[0]; fo.innerHTML = f[1];
-  anime({ targets: $('svg', fo), rotate: [-25, 0], scale: [0.6, 1], duration: 700, easing: EASE });
+  const f = FS[i % FS.length]; fo.style.background = f[0]; fo.innerHTML = `<img src="${f[1]}" alt="" loading="lazy">`;
+  anime({ targets: $('img', fo), scale: [1.12, 1], duration: 700, easing: EASE });
 }));
 
 /* ---------- Contact ---------- */
