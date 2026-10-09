@@ -29,11 +29,11 @@ const PROJECTS = [
     url: 'https://ad-enterprise.framer.website',
     description: 'A website for an enterprise brand, designed and built by ARCEAUS.',
     images: [
-      'projects/AD-Enterprise/head.webp',
-      'projects/AD-Enterprise/Screenshot%202026-09-27%20162958.webp',
-      'projects/AD-Enterprise/Screenshot%202026-09-27%20163243.webp',
-      'projects/AD-Enterprise/Screenshot%202026-09-27%20163316.webp',
-      'projects/AD-Enterprise/Screenshot%202026-09-27%20163417.webp',
+      'projects/AD-enterprise/head.webp',
+      'projects/AD-enterprise/Screenshot%202026-09-27%20162958.webp',
+      'projects/AD-enterprise/Screenshot%202026-09-27%20163243.webp',
+      'projects/AD-enterprise/Screenshot%202026-09-27%20163316.webp',
+      'projects/AD-enterprise/Screenshot%202026-09-27%20163417.webp',
     ],
   },
   {
@@ -153,7 +153,7 @@ const SERVICES = [
 
 /* Images shown in the cursor-following preview when hovering a service row (matched by index). */
 const SERVICE_PREVIEWS = [
-  { color: '#c2b0b5', image: 'projects/AD-Enterprise/head.webp' },
+  { color: '#c2b0b5', image: 'projects/AD-enterprise/head.webp' },
   { color: '#b9ae8f', image: 'projects/Monotone/head.webp' },
   { color: '#9fb0bd', image: 'projects/Nekro/head.webp' },
   { color: '#a8b89c', image: 'projects/Blackrat/head.webp' },
