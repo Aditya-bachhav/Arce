@@ -9,7 +9,7 @@ js/data.js             ALL content + config (projects, pricing, services, FAQ, C
 js/common.js           shared: smooth scroll, page transitions, reveals, header, Cal modal, form
 js/home.js             home page animation
 js/inner.js            work / project / about / contact pages
-Assets/  projects/     images (not included in this package — keep your existing folders)
+assets/  projects/     images (not included in this package — keep your existing folders)
 docs/                  internal notes, not part of the site
 ```
 
