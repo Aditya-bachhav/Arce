@@ -1,10 +1,4 @@
-# ==============================================================================
-# ARCEAUS Studio — Robots.txt
-# https://arceaus.com
-# ==============================================================================
-
 User-agent: *
 Allow: /
 
-# Sitemap Location
 Sitemap: https://arceaus.com/sitemap.xml
