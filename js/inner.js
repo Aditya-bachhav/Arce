@@ -86,7 +86,7 @@
 
       // Keep the document metadata in step with the project being shown.
       const setMeta = (selector, attribute, value) => $(selector)?.setAttribute(attribute, value);
-      const pageUrl = `https://arceaus.com/project.html?p=${project.slug}`;
+      const pageUrl = `https://arceausrazin.vercel.app/project.html?p=${project.slug}`;
       document.title = `${project.title} — ARCEAUS`;
       setMeta('meta[name="description"]', 'content', `${project.title}: ${project.description}`);
       setMeta('link[rel="canonical"]', 'href', pageUrl);
