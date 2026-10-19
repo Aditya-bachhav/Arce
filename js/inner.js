@@ -87,7 +87,7 @@
       // Keep the document metadata in step with the project being shown.
       const setMeta = (selector, attribute, value) => $(selector)?.setAttribute(attribute, value);
       const pageUrl = `https://arceaus.com/project.html?p=${project.slug}`;
-      document.title = `${project.title} — ARCEAUS`;
+      document.title = `${project.title}: ARCEAUS Project Case Study`;
       setMeta('meta[name="description"]', 'content', `${project.title}: ${project.description}`);
       setMeta('link[rel="canonical"]', 'href', pageUrl);
       setMeta('meta[property="og:title"]', 'content', document.title);

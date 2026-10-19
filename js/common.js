@@ -270,7 +270,10 @@
       Cal('init', cal.namespace, { origin: cal.origin });
       Cal.ns[cal.namespace]('ui', {
         theme: 'light',
-        styles: { branding: { brandColor: cal.brandColor } },
+        cssVarsPerTheme: {
+          light: { 'cal-brand': cal.brandColor },
+          dark: { 'cal-brand': cal.brandColor },
+        },
         hideEventTypeDetails: false,
         layout: cal.layout,
       });
@@ -281,7 +284,19 @@
       });
     };
 
-    startCal();
+    if ('IntersectionObserver' in window) {
+      const calObserver = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          calObserver.disconnect();
+          startCal();
+        },
+        { rootMargin: '300px 0px' },
+      );
+      bookingLinks.forEach((bookingLink) => calObserver.observe(bookingLink));
+    } else {
+      startCal();
+    }
   }
 
   window.ARC = { $, $$, hasGsap, motion, EASE, lenis, scrollTo, observe };
