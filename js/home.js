@@ -30,7 +30,7 @@
         0.7,
       )
       .fromTo(
-        ['.hero__intro', '.ticker', '.hero__scene'],
+        ['.hero__intro', '.ticker'],
         { opacity: 0, y: 34 },
         { opacity: 1, y: 0, duration: 1.3, stagger: 0.14 },
         1.44,
@@ -44,6 +44,12 @@
   if (slides.length && dotsHost) {
     let current = 0;
     let timer;
+
+    const loadSlide = (slide) => {
+      if (!slide.src && slide.dataset.src) {
+        slide.src = slide.dataset.src;
+      }
+    };
 
     const dots = slides.map((_, index) => {
       const dot = document.createElement('button');
@@ -59,6 +65,7 @@
 
     const show = (index) => {
       if (index === current) return;
+      loadSlide(slides[index]);
       slides[current].classList.remove('is-active');
       slides[index].classList.add('is-active');
       dots[current].classList.remove('active');

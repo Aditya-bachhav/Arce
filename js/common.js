@@ -31,11 +31,12 @@
   const root = document.documentElement;
   const hasGsap = Boolean(window.gsap);
   const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const motion = hasGsap && !prefersReducedMotion;
+  const isSmallScreen = matchMedia('(max-width: 820px)').matches;
+  const motion = hasGsap && !prefersReducedMotion && !isSmallScreen;
 
   // If GSAP failed to load, drop the .js flag so every "hidden until animated"
   // state in the CSS falls back to visible content instead of a blank page.
-  if (!hasGsap) root.classList.remove('js');
+  if (!motion) root.classList.remove('js');
 
   const EASE = { out: 'expo.out', inOut: 'expo.inOut' };
 
@@ -100,12 +101,9 @@
         curtain.style.display = 'none';
       };
 
-      gsap.fromTo(
-        curtain,
-        { yPercent: 0 },
-        { yPercent: -100, duration: 1, delay: 0.15, ease: EASE.inOut, onComplete: hideCurtain },
-      );
-      setTimeout(hideCurtain, 3200); // safety net
+      // Do not block the first paint. The curtain is only needed for
+      // transitions between internal pages.
+      hideCurtain();
 
       // Coming back via the browser's back/forward cache.
       addEventListener('pageshow', (event) => {

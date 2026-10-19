@@ -9,6 +9,7 @@
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#f3f3ef">
   <link rel="canonical" href="https://arceaus.com/">
+  <link rel="preload" as="image" href="assets/hero-imgs/2.webp" fetchpriority="high">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ARCEAUS">
@@ -116,8 +117,7 @@
   <script>document.documentElement.classList.add('js')</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.css">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=optional" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 
@@ -173,14 +173,14 @@
 
       <div class="hero__scene">
         <div class="hero-slides" id="hero-slides">
-          <img class="hero-slide is-active" src="assets/hero-imgs/2.webp" alt="ARCEAUS project visual 1" decoding="async" fetchpriority="high">
-          <img class="hero-slide" src="assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_47_36%20PM.webp" alt="ARCEAUS project visual 2" decoding="async" loading="lazy">
-          <img class="hero-slide" src="assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_56_06%20PM.webp" alt="ARCEAUS project visual 3" decoding="async" loading="lazy">
-          <img class="hero-slide" src="assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_58_20%20PM.webp" alt="ARCEAUS project visual 4" decoding="async" loading="lazy">
-          <img class="hero-slide" src="assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2004_02_38%20PM%201.webp" alt="ARCEAUS project visual 5" decoding="async" loading="lazy">
-          <img class="hero-slide" src="assets/hero-imgs/Frame%202147239316.webp" alt="ARCEAUS project visual 6" decoding="async" loading="lazy">
-          <img class="hero-slide" src="assets/hero-imgs/Frame%202147239317.webp" alt="ARCEAUS project visual 7" decoding="async" loading="lazy">
-          <img class="hero-slide" src="assets/hero-imgs/Frame%202147239319.webp" alt="ARCEAUS project visual 8" decoding="async" loading="lazy">
+          <img class="hero-slide is-active" src="assets/hero-imgs/2.webp" alt="ARCEAUS project visual 1" decoding="sync" fetchpriority="high">
+          <img class="hero-slide" data-src="assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_47_36%20PM.webp" alt="ARCEAUS project visual 2" decoding="async">
+          <img class="hero-slide" data-src="assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_56_06%20PM.webp" alt="ARCEAUS project visual 3" decoding="async">
+          <img class="hero-slide" data-src="assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2003_58_20%20PM.webp" alt="ARCEAUS project visual 4" decoding="async">
+          <img class="hero-slide" data-src="assets/hero-imgs/ChatGPT%20Image%20Sep%2027,%202026,%2004_02_38%20PM%201.webp" alt="ARCEAUS project visual 5" decoding="async">
+          <img class="hero-slide" data-src="assets/hero-imgs/Frame%202147239316.webp" alt="ARCEAUS project visual 6" decoding="async">
+          <img class="hero-slide" data-src="assets/hero-imgs/Frame%202147239317.webp" alt="ARCEAUS project visual 7" decoding="async">
+          <img class="hero-slide" data-src="assets/hero-imgs/Frame%202147239319.webp" alt="ARCEAUS project visual 8" decoding="async">
         </div>
         <div class="hero-dots" id="hero-dots" role="group" aria-label="Hero image navigation"></div>
       </div>
@@ -249,7 +249,7 @@
             <span>Based in India</span>
           </address>
         </div>
-        <div class="contact__cal" id="cal-inline" data-cal-inline aria-label="Schedule a call">
+        <div class="contact__cal" id="cal-inline" data-cal-inline role="region" aria-label="Schedule a call">
         </div>
       </div>
     </section>
